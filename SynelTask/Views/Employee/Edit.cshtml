@@ -1,0 +1,72 @@
+﻿@model SynelTask.Models.Employee
+
+<h2>Edit Employee</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="PayrollNumber" />
+
+    <div class="mb-3">
+        <label asp-for="Forenames" class="form-label">Forenames</label>
+        <input asp-for="Forenames" class="form-control" />
+        <span asp-validation-for="Forenames" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Surname" class="form-label">Surname</label>
+        <input asp-for="Surname" class="form-control" />
+        <span asp-validation-for="Surname" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+        <input asp-for="DateOfBirth" type="date" class="form-control" />
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Telephone" class="form-label">Telephone</label>
+        <input asp-for="Telephone" class="form-control" />
+        <span asp-validation-for="Telephone" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Mobile" class="form-label">Mobile</label>
+        <input asp-for="Mobile" class="form-control" />
+        <span asp-validation-for="Mobile" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Address" class="form-label">Address</label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Address2" class="form-label">Address 2</label>
+        <input asp-for="Address2" class="form-control" />
+        <span asp-validation-for="Address2" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Postcode" class="form-label">Postcode</label>
+        <input asp-for="Postcode" class="form-control" />
+        <span asp-validation-for="Postcode" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EmailHome" class="form-label">Email</label>
+        <input asp-for="EmailHome" type="email" class="form-control" />
+        <span asp-validation-for="EmailHome" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="StartDate" class="form-label">Start Date</label>
+        <input asp-for="StartDate" type="date" class="form-control" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+

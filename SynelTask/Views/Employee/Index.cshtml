@@ -1,0 +1,127 @@
+﻿@model IEnumerable<SynelTask.Models.Employee>
+
+@{
+    ViewData["Title"] = "Employee List";
+    var currentSortDirection = ViewData["sortDirection"] as string ?? "asc";
+    var nextSortDirection = currentSortDirection == "asc" ? "desc" : "asc";
+
+}
+
+<div class="min-h-screen bg-gray-100 p-5">
+    <h2 class="text-3xl font-bold text-gray-800 mb-5">Employee Management</h2>
+
+    <!-- Success/Error messages -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="bg-green-100 text-green-800 p-2 rounded-md mb-3">
+            @TempData["Success"]
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="bg-red-100 text-red-800 p-2 rounded-md mb-3">
+            @TempData["Error"]
+        </div>
+    }
+
+    <!-- File Upload Form -->
+    <form asp-action="Import" method="post" enctype="multipart/form-data" class="mb-5 flex gap-2">
+        <input type="file" name="file" class="border p-2 rounded-md w-full" required />
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Import CSV
+        </button>
+    </form>
+    <form asp-action="Index" method="get" class="mb-4 flex gap-2">
+        <input type="text" name="searchQuery" value="@ViewData["CurrentFilter"]" placeholder="Query..."
+               class="border p-2 w-full rounded-md shadow-sm" />
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Search</button>
+        <a asp-action="Index" class="bg-gray-300 text-black p-2 rounded-md hover:bg-gray-400">Reset</a>
+    </form>
+    <!-- Employee Table -->
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto border-collapse border border-gray-300 bg-white shadow-md rounded-md">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="border border-gray-300 p-2">
+                        <a asp-action="Index" asp-route-orderBy="PayrollNumber" asp-route-sortDirection="@nextSortDirection" class="text-blue-500 hover:underline">
+                            Payroll Number @(ViewData["SortColumn"] as string == "PayrollNumber" ? (currentSortDirection == "asc" ? "⬆️" : "⬇️") : "")
+                        </a>
+                    </th>
+                    <th class="border border-gray-300 p-2">
+                        <a asp-action="Index" asp-route-orderBy="Forenames" asp-route-sortDirection="@nextSortDirection" class="text-blue-500 hover:underline">
+                            Forenames @(ViewData["SortColumn"] as string == "Forenames" ? (currentSortDirection == "asc" ? "⬆️" : "⬇️") : "")
+                        </a>
+                    </th>
+                    <th class="border border-gray-300 p-2">
+                        <a asp-action="Index" asp-route-orderBy="Surname" asp-route-sortDirection="@nextSortDirection" class="text-blue-500 hover:underline">
+                            Surname @(ViewData["SortColumn"] as string == "Surname" ? (currentSortDirection == "asc" ? "⬆️" : "⬇️") : "")
+                        </a>
+                    </th>
+                    <th class="border border-gray-300 p-2">
+                        <a asp-action="Index" asp-route-orderBy="DateOfBirth" asp-route-sortDirection="@nextSortDirection" class="text-blue-500 hover:underline">
+                            Date of Birth @(ViewData["SortColumn"] as string == "DateOfBirth" ? (currentSortDirection == "asc" ? "⬆️" : "⬇️") : "")
+                        </a>
+                    </th>
+                    <th class="border border-gray-300 p-2">
+                        <a asp-action="Index" asp-route-orderBy="Telephone" asp-route-sortDirection="@nextSortDirection" class="text-blue-500 hover:underline">
+                            Telephone @(ViewData["SortColumn"] as string == "Telephone" ? (currentSortDirection == "asc" ? "⬆️" : "⬇️") : "")
+                        </a>
+                    </th>
+                    <th class="border border-gray-300 p-2">
+                        <a asp-action="Index" asp-route-orderBy="Mobile" asp-route-sortDirection="@nextSortDirection" class="text-blue-500 hover:underline">
+                            Mobile @(ViewData["SortColumn"] as string == "Mobile" ? (currentSortDirection == "asc" ? "⬆️" : "⬇️") : "")
+                        </a>
+                    </th>
+                    <th class="border border-gray-300 p-2">
+                        <a asp-action="Index" asp-route-orderBy="Address" asp-route-sortDirection="@nextSortDirection" class="text-blue-500 hover:underline">
+                            Address @(ViewData["SortColumn"] as string == "Address" ? (currentSortDirection == "asc" ? "⬆️" : "⬇️") : "")
+                        </a>
+                    </th>
+                    <th class="border border-gray-300 p-2">
+                        <a asp-action="Index" asp-route-orderBy="Address2" asp-route-sortDirection="@nextSortDirection" class="text-blue-500 hover:underline">
+                            Address 2 @(ViewData["SortColumn"] as string == "Address2" ? (currentSortDirection == "asc" ? "⬆️" : "⬇️") : "")
+                        </a>
+                    </th>
+                    <th class="border border-gray-300 p-2">
+                        <a asp-action="Index" asp-route-orderBy="Postcode" asp-route-sortDirection="@nextSortDirection" class="text-blue-500 hover:underline">
+                            Postcode @(ViewData["SortColumn"] as string == "Postcode" ? (currentSortDirection == "asc" ? "⬆️" : "⬇️") : "")
+                        </a>
+                    </th>
+                    <th class="border border-gray-300 p-2">
+                        <a asp-action="Index" asp-route-orderBy="EmailHome" asp-route-sortDirection="@nextSortDirection" class="text-blue-500 hover:underline">
+                            Email @(ViewData["SortColumn"] as string == "EmailHome" ? (currentSortDirection == "asc" ? "⬆️" : "⬇️") : "")
+                        </a>
+                    </th>
+                    <th class="border border-gray-300 p-2">
+                        <a asp-action="Index" asp-route-orderBy="StartDate" asp-route-sortDirection="@nextSortDirection" class="text-blue-500 hover:underline">
+                            Start Date @(ViewData["SortColumn"] as string == "StartDate" ? (currentSortDirection == "asc" ? "⬆️" : "⬇️") : "")
+                        </a>
+                    </th>
+                    <th class="border border-gray-300 p-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                    <tr class="hover:bg-gray-100 transition">
+                        <td class="border border-gray-300 p-2">@employee.PayrollNumber</td>
+                        <td class="border border-gray-300 p-2">@employee.Forenames</td>
+                        <td class="border border-gray-300 p-2">@employee.Surname</td>
+                        <td class="border border-gray-300 p-2">@employee.DateOfBirth.ToShortDateString()</td>
+                        <td class="border border-gray-300 p-2">@employee.Telephone</td>
+                        <td class="border border-gray-300 p-2">@employee.Mobile</td>
+                        <td class="border border-gray-300 p-2">@employee.Address</td>
+                        <td class="border border-gray-300 p-2">@employee.Address2</td>
+                        <td class="border border-gray-300 p-2">@employee.Postcode</td>
+                        <td class="border border-gray-300 p-2">@employee.EmailHome</td>
+                        <td class="border border-gray-300 p-2">@employee.StartDate.ToShortDateString()</td>
+                        <td class="border border-gray-300 p-2 text-center">
+                            <a asp-action="Edit" asp-route-id="@employee.PayrollNumber" class="text-blue-500 hover:underline">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@employee.PayrollNumber" class="text-red-500 hover:underline ml-2">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
